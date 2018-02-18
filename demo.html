@@ -3,7 +3,7 @@
 
 <head>
     <script src="lokijs.js"></script>
-    <script src="response100.js"></script>
+    <script src="response12.js"></script>
     <script src="demo.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -34,32 +34,30 @@
                 var k = 0;
                 dropDownMap.forEach(function (ddItem) {
 
+                    var includeRecord = true;
                     dropDownMap.forEach(function (ddItem2) {
 
+                        var selections = getCurrentSelection(ddItem2)
 
-                            var selections = getCurrentSelection(ddItem2)
+                        if (selections) {
 
-                      //  if (ddItem != ddItem2) {
-                            var includeRecord = false;
-                            if (selections) {
-
-                                
-                                if (selections.includes(item[ddItem2])) {
-
-                                    var found = activeRecordCounts[k].find((x) => { return x.item === item[ddItem] })
-
-                                    if (found) {
-                                        found.count++;
-                                    }
-                                    else {
-                                        activeRecordCounts[k].push({ item: item[ddItem], count: 1 });
-                                    }
-
-
-                                }
-                        //    }
+                            if (ddItem != ddItem2) {
+                                includeRecord = selections.includes(item[ddItem2]) && includeRecord
+                            }
                         }
+                 
                     });
+
+                    if (includeRecord) {
+                        var found = activeRecordCounts[k].find((x) => { return x.item === item[ddItem] })
+
+                        if (found) {
+                            found.count++;
+                        }
+                        else {
+                            activeRecordCounts[k].push({ item: item[ddItem], count: 1 });
+                        }
+                    }
                     k++;
                 });
 
@@ -90,9 +88,9 @@
 
         function getCurrentSelection(ddItem) {
             if (ddItem == 'companyName')
-                return null//['Inear', 'Tersanki']
+                return ['Inear', 'Vixo']
             if (ddItem == 'animalColor')
-                return ['Magenta']
+                return ['green']
             else
                 return null
         }
