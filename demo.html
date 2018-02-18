@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="lokijs.js"></script>
+    <script src="response100.js"></script>
+    <script src="demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+
+            // var allItems = coll.find({ 'companyName' : { '$in' : ['Inear', 'Tersanki'] } });
+            var allItems = coll.find();
+
+            var dropDownMap = ['companyName', 'state', 'animalColor']
+
+            var activeRecordCounts = [];
+            var i = 0;
+            dropDownMap.forEach(function (ddItem) {
+                activeRecordCounts[i] = new Array(0)
+                i++;
+            });
+
+            //'Inear', 'Tersanki'
+
+            // Magenta
+
+            allItems.forEach(function (item) {
+                var k = 0;
+                dropDownMap.forEach(function (ddItem) {
+
+                    dropDownMap.forEach(function (ddItem2) {
+
+
+                            var selections = getCurrentSelection(ddItem2)
+
+                      //  if (ddItem != ddItem2) {
+                            var includeRecord = false;
+                            if (selections) {
+
+                                
+                                if (selections.includes(item[ddItem2])) {
+
+                                    var found = activeRecordCounts[k].find((x) => { return x.item === item[ddItem] })
+
+                                    if (found) {
+                                        found.count++;
+                                    }
+                                    else {
+                                        activeRecordCounts[k].push({ item: item[ddItem], count: 1 });
+                                    }
+
+
+                                }
+                        //    }
+                        }
+                    });
+                    k++;
+                });
+
+            });
+
+            i = 0;
+            dropDownMap.forEach(function (ddItem) {
+                // Therefore, convert it to a real array
+                var realArray = $.makeArray(activeRecordCounts[i])
+
+                var data = $.map(realArray, function (val, i) {
+                    return { id: val.item, text: val.item + ' [' + val.count + ']' }
+                });
+
+                $("#" + ddItem).select2({
+                    data: data
+                })
+                i++;
+            });
+
+
+
+            // Now it can be used reliably with $.map()
+
+
+
+        });
+
+        function getCurrentSelection(ddItem) {
+            if (ddItem == 'companyName')
+                return null//['Inear', 'Tersanki']
+            if (ddItem == 'animalColor')
+                return ['Magenta']
+            else
+                return null
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <h1>Loki Demo</h1>
+    <select class="js-example-basic-multiple" id="companyName" multiple="multiple" style="width:200px"></select>
+    <br/>
+    <br/>
+    <select class="js-example-basic-multiple" id="state" multiple="multiple" style="width:200px"></select>
+    <br/>
+    <br/>
+    <select class="js-example-basic-multiple" id="animalColor" multiple="multiple" style="width:200px"></select>
+
+    <br/>
+    <br/>
+    <!-- <button type="button" onclick="runMe()">RunMe</button> -->
+
+
+
+</body>
+
+
+
+</html>

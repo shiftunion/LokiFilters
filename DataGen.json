@@ -1,0 +1,20 @@
+//https://www.json-generator.com/
+
+[
+    '{{repeat(5000)}}',
+    {
+      responseId: '{{index()}}',
+      animalColor: '{{random("blue", "brown", "red", "yellow", "cyan", "magenta", "white", "green")}}',
+      name: '{{firstName()}}',
+      gender: '{{gender()}}',
+      company: '{{company()}}',	
+      state: '{{state()}}',
+      responseDate: '{{date(new Date(2015,01,01),new Date(2019,01,01),"YYYY-MM-dd")}}',    	companyName:'{{random("Isosure","Electonic","Bizmatic","Insurety","Talkalot","Voratak","Enormo","Tropoli","Unia","Zenthall","Isoswitch","Eschoir","Utara","Comstruct","Exposa","Comfirm","Urbanshee","Providco","Vixo","Magneato","Ecrater","Anarco","Intradisk","Bristo","Eyewax","Inear","Tetratrex","Maineland","Comtract","Solgan","Poshome","Prismatic","Billmed","Lyrichord","Amril","Bitrex","Geeknet","Snacktion","Zosis","Aquazure","Olympix","Kiggle","Concility","Bleendot","Endicil","Comtest","Comtours","Zensor","Tersanki")}}'
+                  
+              }
+        
+    
+    
+  ]
+  
+  
